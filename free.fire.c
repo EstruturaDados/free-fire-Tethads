@@ -244,3 +244,72 @@ void mostrarComponentes(Componente comp[], int qtd){
                i+1, comp[i].nome, comp[i].tipo, comp[i].prioridade);
     }
 }
+
+// ----------------------- Função Principal -----------------------
+// ...
+int main(){
+    srand(time(NULL));
+    int escolha;
+    Item mochilaVetor[MAX_ITENS];
+    int qtdVetor=0;
+    No* mochilaLista=NULL;
+
+    do{
+        printf("\n--- MENU ---\n");
+        printf("1. Inserir item (Vetor)\n"item (Vetor)\n");
+        printf("2. Remover item (Vetor)\n"item (Vetor)\n");
+        printf("3. Listar itens (Vetor)\n"itens (Vetor)\n");
+        printf("4. Buscar item (Vetor)\n"item (Vetor)\n");
+        printf("5. Ordenar itens (Vetor)\n"itens (Vetor)\n");
+        printf("6. Inserir item (Lista)\n"item (Lista)\n");
+        printf("7. Remover item (Lista)\n"item (Lista)\n");
+        printf("8. Listar itens (Lista)\n"itens (Lista)\n");
+        printf("9. Buscar item (Lista)\n"item (Lista)\n");
+        printf("0. Sair\n");
+        printf("Escolha: ");
+        scanf("%d", &escolha);
+
+        switch(escolha){
+            case 1: inserirItemVetor(mochilaVetor, &qtdVetor); break;
+            case 2: removerItemVetor(mochilaVetor, &qtdVetor); break;
+            case 3: listarItensVetor(mochilaVetor, qtdVetor); break;
+            case 4: {
+                char nomeBusca[MAX_NOME];
+                printf("Nome do item a buscar: ");
+                scanf(" %29[^\n]", nomeBusca);
+                int indice = buscarSequencialVetor(mochilaVetor, qtdVetor, nomeBusca);
+                if(indice != -1){
+                    printf("Item encontrado: %s\n", mochilaVetor[indice].nome);
+                }
+                break;
+            }
+            case 5: ordenarVetor(mochilaVetor, qtdVetor); break;
+            case 6: inserirItemLista(&mochilaLista); break;
+            case 7: removerItemLista(&mochilaLista); break;
+            case 8: listarItensLista(mochilaLista); break;
+            case 9: {
+                char nomeBusca[MAX_NOME];
+                printf("Nome do item a buscar: ");
+                scanf(" %29[^\n]", nomeBusca);
+                No* item = buscarSequencialLista(mochilaLista, nomeBusca);
+                if(item != NULL){
+                    printf("Item encontrado: %s\n", item->dados.nome);
+                }
+                break;
+            }
+            case 0: break;
+            default: printf("Opcao invalida!\n"); break;
+        }
+    } while(escolha!=0);
+
+    // Liberar memória da lista encadeada
+    No* atual = mochilaLista;
+    while(atual){
+        No* temp = atual;
+        atual=atual->proximo;
+        free(temp);
+    }
+
+    printf("Programa encerrado.\n");
+    return 0;
+}
